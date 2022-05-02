@@ -1,0 +1,14 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
+    %}
+    <h1 align="center">Notes</h1>
+    <ul class="list-group list-group-flush" id="notes">
+      {% for note in notes %}
+      <li class="list-group-item">
+        <span  align="right" style="font-weight:bold; font-size:12px">{{note.date}}</span><br/>
+        <span style="font-weight:bold; font-size:12px">{{note.username}}</span><br/>
+        
+        {{ note.data }}
+      </li>
+      {% endfor %}
+    </ul>
+    {% endblock %}

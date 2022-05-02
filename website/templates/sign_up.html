@@ -1,0 +1,111 @@
+{% extends "base.html" %} {% block title %}Sign Up{% endblock %} {% block
+    content %}
+    <form method="POST">
+      <h3 align="center">Sign Up</h3>
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input
+          type="email"
+          class="form-control"
+          id="email"
+          name="email"
+          placeholder="Enter email : example@sesame.com.tn"
+        />
+      </div>
+      <div class="form-group">
+        <label for="firstName">First Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="firstName"
+          name="firstName"
+          placeholder="Enter first name"
+        />
+      </div>
+      <div class="form-group">
+        <label for="lastName">Last Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="lastName"
+          name="lastName"
+          placeholder="Enter last name"
+        />
+      </div>
+        <div class="form-group">
+          <label for="password1">Password</label>
+          <input
+            type="password"
+            class="form-control"
+            id="password1"
+            name="password1"
+            placeholder="Enter password"
+          />
+        </div>
+        <div class="form-group">
+          <label for="password2">Password (Confirm)</label>
+          <input
+            type="password"
+            class="form-control"
+            id="password2"
+            name="password2"
+            placeholder="Confirm password"
+          />
+        </div>
+        <div class="form-group">
+            <span>User Type</span>
+            <br/>
+          <label for="teacher">Teacher</label>
+          <input
+            type="radio"
+            id="teacher"
+            name="userType"
+            value="teacher"
+          />
+  
+          <label for="student">Student</label>
+          <input
+            type="radio"
+            id="student"
+            name="userType"
+            value="student"
+          />
+        </div>
+  
+  
+        <div class="form-group">
+          <label for="secretKey">Secret key ( in case you are a teacher )</label>
+          <input
+            type="password"
+            class="form-control"
+            id="secretKey"
+            name="secretKey"
+            placeholder="Enter secret key"
+          />
+          </div>
+  
+        <div class="form-group">
+          <span>class (In case you are a student)</span>
+          <br/>
+          <label for="3ingA">3 Ing A</label>
+          <input
+            type="radio"
+            id="3ingA"
+            name="classe"
+            value="3ingA"
+          />
+  
+          <label for="3ingB">3 Ing B</label>
+          <input
+            type="radio"
+            id="3ingB"
+            name="classe"
+            value="3ingB"
+          />
+        </div>
+    
+    
+      <br />
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    {% endblock %}
