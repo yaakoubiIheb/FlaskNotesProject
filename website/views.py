@@ -1,6 +1,6 @@
-from flask import Blueprint, render_template, request, flash, jsonify
+from flask import Blueprint, redirect, render_template, request, flash, jsonify, url_for
 from flask_login import login_required, current_user
-from .models import Note, User
+from .models import Note, User,Comment
 from . import db
 import json
 
@@ -40,6 +40,44 @@ def studentHome():
     
     
     return render_template("studentHome.html", user=current_user,notes=notes)
+
+
+
+
+
+
+
+
+
+@views.route('/comment/<int:noteId>', methods=['POST'])
+@login_required
+def comment(noteId):
+
+
+    comment = request.form.get('comment')
+
+    if len(comment) < 1:
+        flash('Comment is too short!', category='error')
+
+    else:
+            
+        username=current_user.first_name+" "+current_user.last_name
+        new_comment = Comment(data=comment, note_id=noteId,username=username)
+        db.session.add(new_comment)
+        db.session.commit()
+        flash('Comment added!', category='success')
+
+
+    
+    
+    
+    return redirect(url_for('views.studentHome'))
+
+
+
+
+
+
 
 
 

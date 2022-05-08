@@ -1,54 +1,99 @@
 {% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
     %}
-    <h1 align="center">Notes</h1>
-    <ul class="list-group list-group-flush" id="notes">
-      {% for note in user.notes %}
-      <li class="list-group-item">
-        {{ note.data }}
-        <button type="button" class="close" onClick="deleteNote({{ note.id }})">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </li>
-      {% endfor %}
 
-    </ul>
+
+
+
     
-      <div style="margin-top:100px">
-        <h3 align="center">Create a new note</h3>
+    <div style="margin-top:100px">
+      <h1 align="center">Create a new note</h3>
 
-        <form method="POST">
-        <div class="form-group">
-          <textarea name="note" id="note" class="form-control"></textarea>
-  
-        </div>
-        
-        <br />
-        <div class="form-group" align="center">
-          <span style="font-weight:bold">for which class you want to send the note. Leave it blank for a private note.</span>
-          <br/>
-          <label for="3ingA">3 Ing A</label>
-          <input
-            type="radio"
-            id="3ingA"
-            name="classe"
-            value="3ingA"
-          />
-          <br/>
-  
-          <label for="3ingB">3 Ing B</label>
-          <input
-            type="radio"
-            id="3ingB"
-            name="classe"
-            value="3ingB"
-          />
-        </div>
-        <div align="center" style="margin-top:40px">
-          <button type="submit" class="btn btn-primary">Add Note</button>
-          <button type="button" class="btn btn-danger"  onClick="resetFn()">Reset</button>
-        </div>
-      </form>
+      <form method="POST">
+      <div class="form-group">
+        <textarea name="note" id="note" class="form-control"></textarea>
 
       </div>
+      
+      <br />
+      <div class="form-group" align="center">
+        <span style="font-weight:bold">for which class you want to send the note. Leave it blank for a private note.</span>
+        <br/><br/>
+        <label for="3ingA">3 Ing A</label>
+        <input
+          type="radio"
+          id="3ingA"
+          name="classe"
+          value="3ingA"
+        />
+        <br/>
+
+        <label for="3ingB">3 Ing B</label>
+        <input
+          type="radio"
+          id="3ingB"
+          name="classe"
+          value="3ingB"
+        />
+      </div>
+      <div align="center" style="margin-top:40px">
+        <button type="submit" class="btn btn-primary">Add Note</button>
+        <button type="button" class="btn btn-danger"  onClick="resetFn()">Reset</button>
+      </div>
+    </form>
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h1 align="center" style="margin-top:100px">Notes</h1>
+
+    <div style="margin-bottom:100px">
+
+      <ul class="list-group list-group-flush" id="notes">
+
+        {% for note in user.notes %}
+        <li class="list-group-item" style="margin-top: 100px; border:1px solid black;">
+          
+  
+          <span  align="right" style="font-weight:bold; font-size:12px">{{note.date}}</span><br/>
+          
+  
+          <br/>
+          <span style="font-size:20px">{{ note.data }}</span>
+          <button type="button" class="close" onClick="deleteNote({{ note.id }})">
+            <span aria-hidden="true">&times;</span>
+          </button>
+  
+  
+  
+          <br/> <br/>
+          <span style="font-size:17px ; font-weight:bold">comments</span>
+          <ul class="list-group list-group-flush" id="comments"></ul>
+          {% for comment in note.comments %}
+          <li class="list-group-item">
+            <span style="font-weight:bold; font-size:12px">{{comment.username}}</span><br/>
+            {{ comment.data }}
+          {% endfor %}
+          
+        </li>
+        {% endfor %}
+  
+      </ul>
+
+
+    </div>
+    
+    
       
     {% endblock %}

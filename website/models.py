@@ -10,6 +10,7 @@ class Note(db.Model):
     username = db.Column(db.String(300))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     classe = db.Column(db.String(20))
+    comments = db.relationship('Comment')
 
 
 class User(db.Model, UserMixin):
@@ -21,6 +22,15 @@ class User(db.Model, UserMixin):
     classe = db.Column(db.String(20))
     userType = db.Column(db.String(20))
     notes = db.relationship('Note')
+
+
+
+class Comment(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    data = db.Column(db.String(10000))
+    date = db.Column(db.DateTime(timezone=True), default=func.now())
+    username = db.Column(db.String(300))
+    note_id = db.Column(db.Integer, db.ForeignKey('note.id'))
 
     
 
