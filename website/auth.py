@@ -48,6 +48,7 @@ def sign_up():
         first_name = request.form.get('firstName')
         last_name = request.form.get('lastName')
         userType= request.form.get('userType')
+        matiere= request.form.get('matiere')
         secretKey=request.form.get('secretKey')
         password1 = request.form.get('password1')
         password2 = request.form.get('password2')
@@ -55,6 +56,7 @@ def sign_up():
 
         
         user = User.query.filter_by(email=email).first()
+        teacher = User.query.filter_by(matiere=matiere).first()
 
 
         if user:
@@ -71,6 +73,11 @@ def sign_up():
             flash('Passwords don\'t match.', category='error')
         elif userType is None:
             flash('User type is mandatory.', category='error')
+        elif userType == "teacher" and len(matiere) < 1:
+            flash('Subject is mandatory while creating a teacher account.', category='error')
+            
+        elif userType == "teacher" and teacher:
+            flash('There is already a teacher teaching this subject. If there is an issue please contact the administration .', category='error')
         elif userType == "teacher" and len(secretKey) < 1:
             flash('Secret key is mandatory while creating a teacher account. if you don\'t have the secret key please contact the administration', category='error')
         elif userType == "teacher" and secretKey!="sesamesecretkey":
@@ -82,7 +89,7 @@ def sign_up():
         else:
             if userType=="teacher":
                 new_user = User(email=email, first_name=first_name,last_name=last_name, password=generate_password_hash(
-                    password1, method='sha256'),userType=userType)
+                    password1, method='sha256'),userType=userType,matiere=matiere)
                 db.session.add(new_user)
                 db.session.commit()
                 login_user(new_user, remember=True)

@@ -82,6 +82,7 @@
           <ul class="list-group list-group-flush" id="comments"></ul>
           {% for comment in note.comments %}
           <li class="list-group-item">
+            <span style="font-weight:bold; font-size:10px">{{comment.date}}</span><br/>
             <span style="font-weight:bold; font-size:12px">{{comment.username}}</span><br/>
             {{ comment.data }}
           {% endfor %}

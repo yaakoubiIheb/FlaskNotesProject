@@ -1,0 +1,152 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
+    %}
+
+
+
+
+    
+    <div style="margin-top:100px">
+      <h1 align="center">Create a new assignment</h3>
+
+
+    
+        <h3 align="center" style="margin-top:100px">3 Ing B Students</h3>
+
+     <div style="margin-bottom:100px">
+
+      <ul class="list-group list-group-flush" id="notes">
+
+        {% for etudiant in ingB %}
+        <li class="list-group-item" style="margin-top: 100px; border:1px solid black;">
+          
+            <span   style="font-weight:bold; font-size:16px">{{etudiant.first_name}} </span> 
+            <span   style="font-weight:bold; font-size:16px">{{etudiant.last_name}}</span>
+            <br/>
+
+
+            <form method="POST"action="http://127.0.0.1:5000/addTodo/{{user.matiere}}/{{etudiant.id}}">
+                <div class="form-group" style="margin-top: 20px">
+                  <textarea name="todo" id="todo" class="form-control"></textarea>
+          
+                </div>
+                
+                <br />
+                
+                <div align="center">
+                  <button type="submit" class="btn btn-primary">Add assignment</button>
+                
+                </div>
+              </form>
+  
+          
+        </li>
+        {% endfor %}
+  
+      </ul>
+
+    
+
+
+      <h3 align="center" style="margin-top:100px">3 Ing A Students</h3>
+
+    
+
+      <ul class="list-group list-group-flush" id="notes">
+
+        {% for etudiant in ingA %}
+        <li class="list-group-item" style="margin-top: 100px; border:1px solid black;">
+          
+            <span   style="font-weight:bold; font-size:16px">{{etudiant.first_name}} </span> 
+            <span   style="font-weight:bold; font-size:16px">{{etudiant.last_name}}</span>
+            <br/>
+
+
+            <form method="POST" action="http://127.0.0.1:5000/addTodo/{{user.matiere}}/{{etudiant.id}}">
+                <div class="form-group" style="margin-top: 20px">
+                  <textarea name="todo" id="todo" class="form-control"></textarea>
+          
+                </div>
+                
+                <br />
+                
+                <div align="center">
+                  <button type="submit" class="btn btn-primary">Add assignment</button>
+                
+                </div>
+              </form>
+  
+          
+        </li>
+        {% endfor %}
+  
+      </ul>
+
+
+     
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h1 align="center" style="margin-top:100px">Assignments</h1>
+
+    <div style="margin-bottom:100px">
+
+      <ul class="list-group list-group-flush" id="assignments">
+
+        {% for todo in todo_list %}
+        <li class="list-group-item" style="margin-top: 100px; border:1px solid black;">
+          
+  
+          <span  align="right" style="font-weight:bold; font-size:12px">{{todo.date}}</span><br/>
+          <span  align="right" style="font-weight:bold; font-size:12px"> Assignment for {{todo.username}}</span>
+  
+          <br/>
+          <span style="font-size:20px">{{ todo.data }}</span>
+          <button type="button" class="close" onClick="deleteTodo({{ todo.id }})">
+            <span aria-hidden="true">&times;</span>
+          </button>
+  
+  
+  
+          <br/> <br/>
+          <span style="font-size:17px ; font-weight:bold">comments</span>
+          <ul class="list-group list-group-flush" id="comments"></ul>
+          {% for comment in todo.comments %}
+          <li class="list-group-item">
+            <span style="font-weight:bold; font-size:10px">{{comment.date}}</span><br/>
+            <span style="font-weight:bold; font-size:12px">{{comment.username}}</span><br/>
+            {{ comment.data }}
+          {% endfor %}
+          
+
+          <div>
+            <br/>
+            <form method="post" action="http://127.0.0.1:5000/commentTodo/{{todo.id}}">
+              <span style="font-size:12px ; font-weight:bold">Add a comment</span>
+              <textarea name="comment" id="comment" class="form-control"></textarea>
+              <br/>
+              <button type="submit" class="btn btn-primary">Add comment</button>
+            </form>
+          </div>
+        </li>
+        {% endfor %}
+  
+      </ul>
+
+
+    </div>
+    
+    
+      
+    {% endblock %}

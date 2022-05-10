@@ -1,6 +1,6 @@
 from flask import Blueprint, redirect, render_template, request, flash, jsonify, url_for
 from flask_login import login_required, current_user
-from .models import Note, User,Comment
+from .models import CommentTodo, Note, Todo, User,Comment
 from . import db
 import json
 
@@ -83,10 +83,6 @@ def comment(noteId):
 
 
 
-
-
-
-
 @views.route('/delete-note', methods=['POST'])
 def delete_note():
     note = json.loads(request.data)
@@ -98,3 +94,108 @@ def delete_note():
             db.session.commit()
 
     return jsonify({})
+
+
+
+
+
+
+
+
+
+@views.route('/todo', methods=['GET'])
+@login_required
+def todo():
+
+    ingA=User.query.filter_by(classe="3ingA")
+    ingB=User.query.filter_by(classe="3ingB")
+    todo_list=Todo.query.filter_by(matiere=current_user.matiere)
+    for todo in todo_list:
+        user = User.query.filter_by(id=todo.user_id).first()
+        username=user.first_name+" "+user.last_name
+        todo.username=username
+        
+
+
+    return render_template("todo.html", user=current_user,ingA=ingA,ingB=ingB,todo_list=todo_list)
+
+
+
+
+
+
+
+
+
+
+@views.route('/addTodo/<string:matiere>/<int:userId>', methods=['POST'])
+@login_required
+def addTodo(matiere,userId):
+
+    data = request.form.get('todo')
+
+    if len(data) < 1:
+        flash('Assignment is too short!', category='error')
+
+    else:
+            
+        username=current_user.first_name+" "+current_user.last_name
+        new_todo = Todo(data=data, user_id=userId,username=username,matiere=matiere)
+        db.session.add(new_todo)
+        db.session.commit()
+        flash('Assignment added!', category='success')
+
+
+    
+    
+    
+    return redirect(url_for('views.todo'))
+
+
+
+
+
+
+
+    
+@views.route('/todoStudent', methods=['GET'])
+@login_required
+def todoStudent():
+
+
+    return render_template("todoStudent.html", user=current_user)
+
+
+
+
+
+
+
+
+
+@views.route('/commentTodo/<int:todoId>', methods=['POST'])
+@login_required
+def commentTodo(todoId):
+
+
+    comment = request.form.get('comment')
+
+    if len(comment) < 1:
+        flash('Comment is too short!', category='error')
+
+    else:
+            
+        username=current_user.first_name+" "+current_user.last_name
+        new_comment = CommentTodo(data=comment, todo_id=todoId,username=username)
+        db.session.add(new_comment)
+        db.session.commit()
+        flash('Comment added!', category='success')
+
+
+
+    if(current_user.userType=="teacher"):
+        return redirect(url_for('views.todo'))
+ 
+    
+    
+    return redirect(url_for('views.todoStudent'))
