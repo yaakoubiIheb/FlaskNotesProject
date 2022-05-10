@@ -14,3 +14,15 @@ function deleteNote(noteId) {
     document.getElementById("3ingB").checked = false
     return true
   }
+
+
+
+
+  function deleteTodo(todoId) {
+    fetch("/deleteTodo", {
+      method: "POST",
+      body: JSON.stringify({ todoId: todoId }),
+    }).then((_res) => {
+      window.location.href = "/todo";
+    });
+  }

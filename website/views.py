@@ -199,3 +199,25 @@ def commentTodo(todoId):
     
     
     return redirect(url_for('views.todoStudent'))
+
+
+
+
+
+
+
+
+
+
+@views.route('/deleteTodo', methods=['POST'])
+def delete_todo():
+    todo = json.loads(request.data)
+    todoId = todo['todoId']
+    todo = Todo.query.get(todoId)
+    if todo:
+        db.session.delete(todo)
+        db.session.commit()
+        
+        
+
+    return jsonify({})
