@@ -1,0 +1,22 @@
+{% extends "base.html" %} {% block title %}Marks{% endblock %} {% block content
+    %}
+
+    <div>
+        <h3 align="center" style="margin-top:100px">Your Marks</h3>
+        <div style="display:flex; flex-flow: row wrap;">
+            {% for mark in mark_list %}
+                
+                    
+                        <div style="  display: flex; flex-direction: column; justify-content: space-evenly;  align-items: center; width: 30%; border: 1px solid grey ; margin:5%;">
+                            <strong><p>{{mark.matiere}}</p></strong>
+                            
+                            <p>CC mark: {{mark.cc}}  </p>
+                            <p>DS mark: {{mark.ds}}  </p>
+                            <p>EXAM mark: {{mark.exam}}  </p>
+                        
+                        </div >
+                            
+                   
+            {% endfor %}
+        </div>
+{%endblock%}

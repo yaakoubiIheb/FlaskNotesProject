@@ -26,3 +26,12 @@ function deleteNote(noteId) {
       window.location.href = "/todo";
     });
   }
+
+  function deleteMark(markId) {
+    fetch("/deleteMark", {
+      method: "POST",
+      body: JSON.stringify({ markId: markId }),
+    }).then((_res) => {
+      window.location.href = "/marks";
+    });
+  }

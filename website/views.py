@@ -1,6 +1,6 @@
 from flask import Blueprint, redirect, render_template, request, flash, jsonify, url_for
 from flask_login import login_required, current_user
-from .models import CommentTodo, Note, Todo, User,Comment
+from .models import CommentTodo, Note, Todo, User,Comment, Mark
 from . import db
 import json
 
@@ -24,6 +24,7 @@ def home():
             db.session.add(new_note)
             db.session.commit()
             flash('Note added!', category='success')
+    
 
     return render_template("home.html", user=current_user)
 
@@ -216,6 +217,55 @@ def delete_todo():
     todo = Todo.query.get(todoId)
     if todo:
         db.session.delete(todo)
+        db.session.commit()
+        
+        
+
+    return jsonify({})
+
+@views.route('/marks', methods=['GET'])
+@login_required
+def marks():
+    ingA=User.query.filter_by(classe="3ingA")
+    ingB=User.query.filter_by(classe="3ingB")
+    mark_list=Mark.query.filter_by(matiere=current_user.matiere)
+    
+    return render_template("marks.html", user=current_user,ingA=ingA,ingB=ingB,mark_list=mark_list)
+
+
+@views.route('/addMark/<string:matiere>/<int:userId>', methods=['POST'])
+@login_required
+def addMark(matiere,userId):
+
+    CC = request.form.get('CC')
+    DS = request.form.get('DS')
+    EXAM = request.form.get('EXAM')
+    user = User.query.filter_by(id=userId).first()
+    username = user.first_name +" "+user.last_name
+    new_mark = Mark(cc=CC, ds=DS, exam=EXAM, user_id=userId, matiere=matiere, username=username)
+    db.session.add(new_mark)
+    db.session.commit()
+    flash('Mark added!', category='success')
+
+    
+    return redirect(url_for('views.marks'))
+
+
+@views.route('/marksStudent', methods=['GET'])
+@login_required
+def markStudent():
+    mark_list = Mark.query.filter_by(user_id=current_user.id)
+
+
+    return render_template("marksStudent.html", user=current_user, mark_list=mark_list)
+
+@views.route('/deleteMark', methods=['POST'])
+def delete_mark():
+    mark = json.loads(request.data)
+    markId = mark['markId']
+    mark = Mark.query.get(markId)
+    if mark:
+        db.session.delete(mark)
         db.session.commit()
         
         

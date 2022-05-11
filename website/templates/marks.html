@@ -1,0 +1,189 @@
+{% extends "base.html" %} {% block title %}Marks{% endblock %} {% block content
+    %}
+
+
+
+
+    
+    <div style="margin-top:100px">
+      <h1 align="center">Add marks</h3>
+
+
+    
+        <h3 align="center" style="margin-top:100px">3 Ing B Students</h3>
+
+     <div style="margin-bottom:100px;">
+
+      <ul class="list-group list-group-flush" id="notes">
+
+        {% for etudiant in ingB %}
+        <li class="list-group-item" style="margin-top: 100px; border:1px solid black; width:100% ; align-items: center; ">
+          
+            
+
+
+            <form method="POST" action="http://127.0.0.1:5000/addMark/{{user.matiere}}/{{etudiant.id}}">
+                <div class="form-group" style="margin-top: 20px; align-items:center; display: flex; flex-direction: column;justify-content: center; ">
+                    <div style="margin-bottom: 20px;">
+                        <span   style="font-weight:bold; font-size:16px">{{etudiant.first_name}} </span> 
+                        <span   style="font-weight:bold; font-size:16px">{{etudiant.last_name}}</span>
+                        <br/>
+                    </div>
+                    <label for="CC">CC</label>
+                    <br>
+                  <input 
+                  type="number"
+                  name="CC"
+                  id="CC"
+                  />
+                    <br>
+                  <label for="DS">DS</label>
+                  <br>
+                  <input 
+                  type="number"
+                  name="DS"
+                  id="DS"
+                  />
+                  <br>
+                  <label for="EXAM">EXAMIN</label>
+                  <br>
+                  <input 
+                  type="number"
+                  name="EXAM"
+                  id="EXAM"
+                  />
+                    <br>
+                </div>
+                
+                <br />
+                
+                <div align="center">
+                  <button type="submit" class="btn btn-primary">Add mark</button>
+                
+                </div>
+              </form>
+  
+          
+        </li>
+        {% endfor %}
+  
+      </ul>
+
+    
+
+
+      <h3 align="center" style="margin-top:100px">3 Ing A Students</h3>
+
+    
+
+      <ul class="list-group list-group-flush" id="notes">
+
+        {% for etudiant in ingA %}
+        <li class="list-group-item" style="margin-top: 100px; border:1px solid black; align-items: center; width: 100%;">
+          
+
+            <form method="POST" action="http://127.0.0.1:5000/addMark/{{user.matiere}}/{{etudiant.id}}">
+                <div class="form-group" style="margin-top: 20px; align-items:center; display: flex; flex-direction: column;justify-content: center; ">
+                    <div style="margin-bottom: 20px;">
+                        <span   style="font-weight:bold; font-size:16px">{{etudiant.first_name}} </span> 
+                        <span   style="font-weight:bold; font-size:16px">{{etudiant.last_name}}</span>
+                        <br/>
+                    </div>
+                    <label for="CC">CC</label>
+                    <br>
+                  <input 
+                  type="number"
+                  name="CC"
+                  id="CC"
+                  />
+                    <br>
+                  <label for="DS">DS</label>
+                  <br>
+                  <input 
+                  type="number"
+                  name="DS"
+                  id="DS"
+                  />
+                  <br>
+                  <label for="EXAM">EXAMIN</label>
+                  <br>
+                  <input 
+                  type="number"
+                  name="EXAM"
+                  id="EXAM"
+                  />
+                    <br>
+                </div>
+                
+                <br />
+                
+                <div align="center">
+                  <button type="submit" class="btn btn-primary">Add mark</button>
+                
+                </div>
+              </form>
+  
+          
+        </li>
+        {% endfor %}
+  
+      </ul>
+
+
+     
+    </div>
+    <div>
+        <h3 align="center" style="margin-top:100px">3 Ing B Student's Marks</h3>
+        <div style="display:flex; flex-flow: row wrap;">
+            {% for mark in mark_list %}
+                {% for etudiant in ingB %}
+                    {% if mark.user_id == etudiant.id %}
+                    
+                        <div style="width: 30%; border: 1px solid grey ; display: block; margin:5%;">
+                        <div style="  display: flex; flex-direction: column; justify-content: space-evenly;  align-items: center;">
+                            <strong><p>{{mark.username}}</p></strong>
+                            <p>CC mark: {{mark.cc}}  </p>
+                            <p>DS mark: {{mark.ds}}  </p>
+                            <p>EXAM mark: {{mark.exam}}  </p>
+                        
+                        </div >
+                            <button type="button" class="close" onClick="deleteMark({{ mark.id }})" style="margin-left: 5%;">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        
+                    {% endif %}
+                {% endfor %}
+            
+            {% endfor %}
+        </div>
+
+        <h3 align="center" style="margin-top:100px">3 Ing A Student's Marks</h3>
+        <div style="display:flex; flex-flow: row wrap;">
+            {% for mark in mark_list %}
+                {% for etudiant in ingA %}
+                    {% if mark.user_id == etudiant.id %}
+                    
+                    
+                    <div style="width: 30%; border: 1px solid grey ; display: block; margin:5%;">
+                        <div style="  display: flex; flex-direction: column; justify-content: space-evenly;  align-items: center;">
+                            <strong><p>{{mark.username}}</p></strong>
+                            <p>CC mark: {{mark.cc}}  </p>
+                            <p>DS mark: {{mark.ds}}  </p>
+                            <p>EXAM mark: {{mark.exam}}  </p>
+                        
+                        </div >
+                        <div>
+                            <button type="button" class="close" onClick="deleteMark({{ mark.id }})" style="margin-left: 5%; border: none;">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        
+                    {% endif %}
+                {% endfor %}
+            
+            {% endfor %}
+        </div>
+    </div>
+    {%endblock%}
+

@@ -46,6 +46,7 @@ class Mark(db.Model):
     ds = db.Column(db.Float)
     exam = db.Column(db.Float)
     matiere = db.Column(db.String(300))
+    username = db.Column(db.String(300))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
 
