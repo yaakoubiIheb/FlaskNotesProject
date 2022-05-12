@@ -12,59 +12,65 @@
     
         <h3 align="center" style="margin-top:100px">3 Ing B Students</h3>
 
-     <div style="margin-bottom:100px;">
+     <div style="margin-bottom:100px; ">
 
       <ul class="list-group list-group-flush" id="notes">
-
+        
         {% for etudiant in ingB %}
-        <li class="list-group-item" style="margin-top: 100px; border:1px solid black; width:100% ; align-items: center; ">
-          
+            {% if etudiant.id not in added_marksB %}
+        
+                        <li class="list-group-item" style="margin-top: 100px; border:1px solid black; align-items: center; width: 100%;">
             
 
-
-            <form method="POST" action="http://127.0.0.1:5000/addMark/{{user.matiere}}/{{etudiant.id}}">
-                <div class="form-group" style="margin-top: 20px; align-items:center; display: flex; flex-direction: column;justify-content: center; ">
-                    <div style="margin-bottom: 20px;">
-                        <span   style="font-weight:bold; font-size:16px">{{etudiant.first_name}} </span> 
-                        <span   style="font-weight:bold; font-size:16px">{{etudiant.last_name}}</span>
-                        <br/>
-                    </div>
-                    <label for="CC">CC</label>
-                    <br>
-                  <input 
-                  type="number"
-                  name="CC"
-                  id="CC"
-                  />
-                    <br>
-                  <label for="DS">DS</label>
-                  <br>
-                  <input 
-                  type="number"
-                  name="DS"
-                  id="DS"
-                  />
-                  <br>
-                  <label for="EXAM">EXAMIN</label>
-                  <br>
-                  <input 
-                  type="number"
-                  name="EXAM"
-                  id="EXAM"
-                  />
-                    <br>
-                </div>
-                
-                <br />
-                
-                <div align="center">
-                  <button type="submit" class="btn btn-primary">Add mark</button>
-                
-                </div>
-              </form>
+                        <form method="POST" action="http://127.0.0.1:5000/addMark/{{user.matiere}}/{{etudiant.id}}">
+                            <div class="form-group" style="margin-top: 20px; align-items:center; display: flex; flex-direction: column;justify-content: center; ">
+                                <div style="margin-bottom: 20px;">
+                                    <span   style="font-weight:bold; font-size:16px">{{etudiant.first_name}} </span> 
+                                    <span   style="font-weight:bold; font-size:16px">{{etudiant.last_name}}</span>
+                                    <br/>
+                                </div>
+                                <label for="CC">CC</label>
+                                <br>
+                            <input 
+                            type="number"
+                            name="CC"
+                            id="CC"
+                            step="0.01"
+                            />
+                                <br>
+                            <label for="DS">DS</label>
+                            <br>
+                            <input 
+                            type="number"
+                            name="DS"
+                            id="DS"
+                            step="0.01"
+                            />
+                            <br>
+                            <label for="EXAM">EXAMIN</label>
+                            <br>
+                            <input 
+                            type="number"
+                            name="EXAM"
+                            id="EXAM"
+                            step="0.01"
+                            />
+                                <br>
+                            </div>
+                            
+                            <br />
+                            
+                            <div align="center">
+                            <button type="submit" class="btn btn-primary">Add mark</button>
+                            
+                            </div>
+                        </form>
   
           
-        </li>
+                        </li>
+                 
+            {% endif %}
+    
         {% endfor %}
   
       </ul>
@@ -79,52 +85,60 @@
       <ul class="list-group list-group-flush" id="notes">
 
         {% for etudiant in ingA %}
-        <li class="list-group-item" style="margin-top: 100px; border:1px solid black; align-items: center; width: 100%;">
-          
+            {% if etudiant.id not in added_marksA %}
+        
+                        <li class="list-group-item" style="margin-top: 100px; border:1px solid black; align-items: center; width: 100%;">
+            
 
-            <form method="POST" action="http://127.0.0.1:5000/addMark/{{user.matiere}}/{{etudiant.id}}">
-                <div class="form-group" style="margin-top: 20px; align-items:center; display: flex; flex-direction: column;justify-content: center; ">
-                    <div style="margin-bottom: 20px;">
-                        <span   style="font-weight:bold; font-size:16px">{{etudiant.first_name}} </span> 
-                        <span   style="font-weight:bold; font-size:16px">{{etudiant.last_name}}</span>
-                        <br/>
-                    </div>
-                    <label for="CC">CC</label>
-                    <br>
-                  <input 
-                  type="number"
-                  name="CC"
-                  id="CC"
-                  />
-                    <br>
-                  <label for="DS">DS</label>
-                  <br>
-                  <input 
-                  type="number"
-                  name="DS"
-                  id="DS"
-                  />
-                  <br>
-                  <label for="EXAM">EXAMIN</label>
-                  <br>
-                  <input 
-                  type="number"
-                  name="EXAM"
-                  id="EXAM"
-                  />
-                    <br>
-                </div>
-                
-                <br />
-                
-                <div align="center">
-                  <button type="submit" class="btn btn-primary">Add mark</button>
-                
-                </div>
-              </form>
+                        <form method="POST" action="http://127.0.0.1:5000/addMark/{{user.matiere}}/{{etudiant.id}}">
+                            <div class="form-group" style="margin-top: 20px; align-items:center; display: flex; flex-direction: column;justify-content: center; ">
+                                <div style="margin-bottom: 20px;">
+                                    <span   style="font-weight:bold; font-size:16px">{{etudiant.first_name}} </span> 
+                                    <span   style="font-weight:bold; font-size:16px">{{etudiant.last_name}}</span>
+                                    <br/>
+                                </div>
+                                <label for="CC">CC</label>
+                                <br>
+                            <input 
+                            type="number"
+                            name="CC"
+                            id="CC"
+                            step="0.01"
+                            />
+                                <br>
+                            <label for="DS">DS</label>
+                            <br>
+                            <input 
+                            type="number"
+                            name="DS"
+                            id="DS"
+                            step="0.01"
+                            />
+                            <br>
+                            <label for="EXAM">EXAMIN</label>
+                            <br>
+                            <input 
+                            type="number"
+                            name="EXAM"
+                            id="EXAM"
+                            step="0.01"
+                            />
+                                <br>
+                            </div>
+                            
+                            <br />
+                            
+                            <div align="center">
+                            <button type="submit" class="btn btn-primary">Add mark</button>
+                            
+                            </div>
+                        </form>
   
           
-        </li>
+                        </li>
+                 
+            {% endif %}
+    
         {% endfor %}
   
       </ul>
@@ -134,18 +148,51 @@
     </div>
     <div>
         <h3 align="center" style="margin-top:100px">3 Ing B Student's Marks</h3>
-        <div style="display:flex; flex-flow: row wrap;">
+        <div style="display:flex; flex-flow: row wrap;  ">
             {% for mark in mark_list %}
                 {% for etudiant in ingB %}
                     {% if mark.user_id == etudiant.id %}
                     
-                        <div style="width: 30%; border: 1px solid grey ; display: block; margin:5%;">
-                        <div style="  display: flex; flex-direction: column; justify-content: space-evenly;  align-items: center;">
+                        <div class="student-marks" style="width: 30%; border: 1px solid grey ;  margin:4%; margin-left: 12%;">
+                        <div style="  display: flex; flex-direction: column;   align-items: center; width: 100%;">
                             <strong><p>{{mark.username}}</p></strong>
-                            <p>CC mark: {{mark.cc}}  </p>
-                            <p>DS mark: {{mark.ds}}  </p>
-                            <p>EXAM mark: {{mark.exam}}  </p>
-                        
+                            <form method="POST" action="http://127.0.0.1:5000/updateMark/{{mark.id}}/{{etudiant.id}}">
+                                <div style=" display: flex; flex-direction: column; justify-content: space-evenly; width: 90%; ">
+                                <div>
+                                <label for="cc">CC : </label>
+                                <input 
+                                type="number"
+                                value={{mark.cc}}
+                                step=0.01
+                                name="CC"
+                                id="cc"
+                                >
+                                </div>
+                            <div>
+                                <label for="ds">DS : </label>
+                                <input 
+                                type="number"
+                                value={{mark.ds}}
+                                step=0.01
+                                name="DS"
+                                id="ds"
+                                >
+                            </div>
+                            <div>
+                                <label for="exam">EXAM : </label>
+                                <input 
+                                type="number"
+                                value={{mark.exam}}
+                                step=0.01
+                                name="EXAM"
+                                id="exam"
+                                >
+                            </div>
+                            <button type="submit" style="width: 90%; margin:7% 0%;">Update</button>
+                            </div>
+                            </form>
+                            
+                            
                         </div >
                             <button type="button" class="close" onClick="deleteMark({{ mark.id }})" style="margin-left: 5%;">
                                 <span aria-hidden="true">&times;</span>
@@ -165,16 +212,48 @@
                     {% if mark.user_id == etudiant.id %}
                     
                     
-                    <div style="width: 30%; border: 1px solid grey ; display: block; margin:5%;">
-                        <div style="  display: flex; flex-direction: column; justify-content: space-evenly;  align-items: center;">
+                    <div class="student-marks" >
+                        <div style="  display: flex; flex-direction: column;   align-items: center; width: 100%;">
                             <strong><p>{{mark.username}}</p></strong>
-                            <p>CC mark: {{mark.cc}}  </p>
-                            <p>DS mark: {{mark.ds}}  </p>
-                            <p>EXAM mark: {{mark.exam}}  </p>
-                        
+                            <form method="POST" action="http://127.0.0.1:5000/updateMark/{{mark.id}}/{{etudiant.id}}">
+                                <div style=" display: flex; flex-direction: column; justify-content: space-evenly; width: 90%; ">
+                                <div>
+                                <label for="cc">CC : </label>
+                                <input 
+                                type="number"
+                                value={{mark.cc}}
+                                step=0.01
+                                name="CC"
+                                id="cc"
+                                >
+                                </div>
+                            <div>
+                                <label for="ds">DS : </label>
+                                <input 
+                                type="number"
+                                value={{mark.ds}}
+                                step=0.01
+                                name="DS"
+                                id="ds"
+                                >
+                            </div>
+                            <div>
+                                <label for="exam">EXAM : </label>
+                                <input 
+                                type="number"
+                                value={{mark.exam}}
+                                step=0.01
+                                name="EXAM"
+                                id="exam"
+                                >
+                            </div>
+                            <button type="submit" style="width: 90%; margin:7% 0%;">Update</button>
+                            </div>
+                            </form>
+                            
+                            
                         </div >
-                        <div>
-                            <button type="button" class="close" onClick="deleteMark({{ mark.id }})" style="margin-left: 5%; border: none;">
+                            <button type="button" class="close" onClick="deleteMark({{ mark.id }})" style="margin-left: 5%;">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>

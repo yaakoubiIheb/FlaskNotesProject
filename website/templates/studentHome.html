@@ -1,48 +1,52 @@
 {% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
     %}
-    <h1 align="center">Notes</h1>
-    <ul class="list-group list-group-flush" id="notes" style="margin-bottom: 100px;">
-      {% for note in notes %}
-      <li class="list-group-item" style="margin-top: 100px; border:1px solid black;">
-        <span  align="right" style="font-weight:bold; font-size:12px">{{note.date}}</span><br/>
-        <span style="font-weight:bold; font-size:12px">{{note.username}}</span><br/>
-        
-
-        <br/>
-        <span style="font-size:20px">{{ note.data }}</span>
-
-
-
-
-        <br/> <br/>
-          <span style="font-size:17px ; font-weight:bold">comments</span>
-          <ul class="list-group list-group-flush" id="comments"></ul>
-          {% for comment in note.comments %}
-          <li class="list-group-item">
-            <span style="font-weight:bold; font-size:10px">{{comment.date}}</span><br/>
-            <span style="font-weight:bold; font-size:12px">{{comment.username}}</span><br/>
-            {{ comment.data }}
-          {% endfor %}
+    <div class="student-home">
+      <h1 align="center">Notes</h1>
+      <ul class="list-group list-group-flush" id="student-notes" style="margin-bottom: 100px;">
+        {% for note in notes %}
+        <li class="list-group-item"  id="note-box" style="margin-top: 100px; border:1px solid black;">
+          <span  align="right" style="font-weight:bold; font-size:12px">{{note.date}}</span><br/>
+          <span style="font-weight:bold; font-size:12px">{{note.username}}</span><br/>
+          
+  
+          <br/>
+          <span style="font-size:20px">{{ note.data }}</span>
+  
+  
+  
+  
+          <br/> <br/>
+            <span style="font-size:17px ; font-weight:bold">comments</span>
+            <ul class="list-group list-group-flush" id="comments"></ul>
+            {% for comment in note.comments %}
+            <li class="list-group-item">
+              <span style="font-weight:bold; font-size:10px">{{comment.date}}</span><br/>
+              <span style="font-weight:bold; font-size:12px">{{comment.username}}</span><br/>
+              {{ comment.data }}
+            {% endfor %}
+            
+            </li>
+          
+  
+          <div>
+            <br/>
+            <form method="post" action="http://127.0.0.1:5000/comment/{{note.id}}">
+              <span style="font-size:12px ; font-weight:bold">Add a comment</span>
+              <textarea name="comment" id="comment" class="form-control"></textarea>
+              <br/>
+              <button type="submit" class="btn btn-primary">Add comment</button>
+            </form>
+          </div>
+  
           
         </li>
-        
-
-        <div>
-          <br/>
-          <form method="post" action="http://127.0.0.1:5000/comment/{{note.id}}">
-            <span style="font-size:12px ; font-weight:bold">Add a comment</span>
-            <textarea name="comment" id="comment" class="form-control"></textarea>
-            <br/>
-            <button type="submit" class="btn btn-primary">Add comment</button>
-          </form>
-        </div>
-
-        
-      </li>
-
-
-      {% endfor %}
-    </ul>
-
-
+  
+  
+        {% endfor %}
+      </ul>
+  
+    </div>
+    
+      
+    
     {% endblock %}

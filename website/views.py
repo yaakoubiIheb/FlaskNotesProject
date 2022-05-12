@@ -229,8 +229,25 @@ def marks():
     ingA=User.query.filter_by(classe="3ingA")
     ingB=User.query.filter_by(classe="3ingB")
     mark_list=Mark.query.filter_by(matiere=current_user.matiere)
-    
-    return render_template("marks.html", user=current_user,ingA=ingA,ingB=ingB,mark_list=mark_list)
+    added_marksB = []
+    for etudiant in ingB:
+        found=False
+        for mark in mark_list:
+            if etudiant.id == mark.user_id:
+                found=True
+        if found==True:
+            added_marksB.append(etudiant.id)
+
+    added_marksA = []
+    for etudiant in ingA:
+        found=False
+        for mark in mark_list:
+            if etudiant.id == mark.user_id:
+                found=True
+        if found==True:
+            added_marksA.append(etudiant.id)
+
+    return render_template("marks.html", user=current_user,ingA=ingA,ingB=ingB,mark_list=mark_list, added_marksB=added_marksB, added_marksA=added_marksA)
 
 
 @views.route('/addMark/<string:matiere>/<int:userId>', methods=['POST'])
@@ -271,3 +288,22 @@ def delete_mark():
         
 
     return jsonify({})
+
+@views.route('/updateMark/<int:markId>/<int:userId>', methods=['POST'])
+@login_required
+def updateMark(markId,userId):
+
+    CC = request.form.get('CC')
+    DS = request.form.get('DS')
+    EXAM = request.form.get('EXAM')
+    user = User.query.filter_by(id=userId).first()
+    username = user.first_name +" "+user.last_name
+    recent_mark = Mark.query.filter_by(id=markId).first()
+    recent_mark.cc = CC 
+    recent_mark.ds = DS 
+    recent_mark.exam = EXAM  
+    db.session.commit()
+    flash('Mark updated!', category='success')
+
+    
+    return redirect(url_for('views.marks'))
